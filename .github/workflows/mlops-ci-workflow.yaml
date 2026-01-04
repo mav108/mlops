@@ -37,7 +37,7 @@ jobs:
         python src/features/engineer.py \
         --input data/processed/cleaned_house_data.csv \
         --output data/processed/featured_house_data.csv \
-        --preprocessor models/preprocessor.pkl
+        --preprocessor models/trained/preprocessor.pkl
 
     - name: Setup MLflow
       run: |
