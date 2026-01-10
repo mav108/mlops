@@ -11,19 +11,23 @@ spec:
   pollingInterval: 30        # seconds
   cooldownPeriod: 120        # seconds before scaling down
   triggers:
-    - type: prometheus
+    # - type: prometheus
+    #   metadata:
+    #     serverAddress: http://prom-kube-prometheus-stack-prometheus.monitoring.svc:9090
+    #     metricName: fastapi_latency_p95
+    #     query: |
+    #       histogram_quantile(0.95,
+    #       sum(rate(http_request_duration_seconds_bucket[1m])) by (le))
+    #     threshold: "0.5"
+    # # Add only the following to existing code
+    # - type: prometheus
+    #   metadata:
+    #     serverAddress: http://prom-kube-prometheus-stack-prometheus.monitoring.svc:9090
+    #     metricName: request_rate
+    #     query: sum(rate(http_requests_total[1m]))
+    #     threshold: "1000"
+    # Add for CPU-based scaling
+    - type: cpu
+      metricType: Utilization         # Allowed values: Utilization, AverageValue
       metadata:
-        serverAddress: http://prom-kube-prometheus-stack-prometheus.monitoring.svc:9090
-        metricName: fastapi_latency_p95
-        query: |
-          histogram_quantile(0.95,
-          sum(rate(http_request_duration_seconds_bucket[1m])) by (le))
-        threshold: "1"
-    # Add only the following to existing code
-    - type: prometheus
-      metadata:
-        serverAddress: http://prom-kube-prometheus-stack-prometheus.monitoring.svc:9090
-        metricName: request_rate
-        query: sum(rate(http_requests_total[1m]))
-        threshold: "10000"
-
+        value: "50"
