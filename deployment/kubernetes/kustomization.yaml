@@ -6,4 +6,4 @@ resources:
   - model-svc.yaml
   - streamlit-deploy.yaml
   - streamlit-svc.yaml
-  # - ../monitoring/fastap-scaledobject.yaml
+  - ../monitoring/fastap-scaledobject.yaml
